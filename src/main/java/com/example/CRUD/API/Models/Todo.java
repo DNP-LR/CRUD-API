@@ -1,9 +1,6 @@
 package com.example.CRUD.API.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +12,26 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Todo {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "todo_sequence",
+            sequenceName = "todo_sequence",
+            allocationSize=1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "todo_sequence"
+    )
+
+
+
     @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
     Long id;
     @Column
